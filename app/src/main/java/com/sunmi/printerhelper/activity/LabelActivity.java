@@ -12,9 +12,9 @@ import com.sunmi.printerhelper.utils.SunmiPrintHelper;
 
 /**
  * <pre>
- *     Currently, V2 and V2pro model support the function of label printing
- *     现在，V2和V2pro机型支持标签打印的功能，可以单独打印或者连续打印标签
- *  </pre>
+ * Currently, V2 and V2pro model support the function of label printing
+ * Now, V2 and V2pro models support the function of label printing, which can print labels individually or continuously
+ * </pre>
  *
  * @author kaltin
  * @since create at 2020-05-21

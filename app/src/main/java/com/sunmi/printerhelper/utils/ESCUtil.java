@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 
 import java.io.ByteArrayOutputStream;
 
-//常用指令封装
+// Common command package
 public class ESCUtil {
 
 	public static final byte ESC = 0x1B;// Escape
@@ -20,7 +20,7 @@ public class ESCUtil {
 	public static final byte FF =  0x0C;// Carriage control (print and return to the standard mode (in page mode))
 	public static final byte CAN = 0x18;// Canceled (cancel print data in page mode)
 
-	//初始化打印机
+	// Initialization
 	public static byte[] init_printer() {
 		byte[] result = new byte[2];
 		result[0] = ESC;
@@ -28,7 +28,7 @@ public class ESCUtil {
 		return result;
 	}
 
-	//打印浓度指令
+	// Print density command
 	public static byte[] setPrinterDarkness(int value){
 		byte[] result = new byte[9];
 		result[0] = GS;
@@ -44,14 +44,15 @@ public class ESCUtil {
 	}
 
 	/**
-	 * 打印单个二维码 sunmi自定义指令
-	 * @param code:			二维码数据
-	 * @param modulesize:	二维码块大小(单位:点, 取值 1 至 16 )
-	 * @param errorlevel:	二维码纠错等级(0 至 3)
-	 *                0 -- 纠错级别L ( 7%)
-	 *                1 -- 纠错级别M (15%)
-	 *                2 -- 纠错级别Q (25%)
-	 *                3 -- 纠错级别H (30%)
+	 *
+	 * Print a single QR code sunmi custom command
+	 * @param code:			QR code data
+	 * @param modulesize:	QR code block size (unit: point, value 1 to 16)
+	 * @param errorlevel:	QR code error correction level (0 to 3)
+	 *                0 -- Error correction level L ( 7%)
+	 *                1 -- Error correction level M (15%)
+	 *                2 -- Error correction level Q (25%)
+	 *                3 -- Error correction level H (30%)
 	 */
 	public static byte[] getPrintQRCode(String code, int modulesize, int errorlevel){
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
@@ -67,15 +68,15 @@ public class ESCUtil {
 	}
 
 	/**
-	 * 横向两个二维码 sunmi自定义指令
-	 * @param code1:			二维码数据
-	 * @param code2:			二维码数据
-	 * @param modulesize:	二维码块大小(单位:点, 取值 1 至 16 )
-	 * @param errorlevel:	二维码纠错等级(0 至 3)
-	 *                0 -- 纠错级别L ( 7%)
-	 *                1 -- 纠错级别M (15%)
-	 *                2 -- 纠错级别Q (25%)
-	 *                3 -- 纠错级别H (30%)
+	 * Two horizontal two-dimensional codes sunmi custom instructions
+	 * @param code1:			QR code data
+	 * @param code2:			QR code data
+	 * @param modulesize:	QR code block size (unit: point, value 1 to 16)
+	 * @param errorlevel:	QR code error correction level (0 to 3)
+	 *                0 -- Error correction level L ( 7%)
+	 *                1 -- Error correction level M (15%)
+	 *                2 -- Error correction level Q (25%)
+	 *                3 -- Error correction level H (30%)
 	 */
 	public static byte[] getPrintDoubleQRCode(String code1, String code2, int modulesize, int errorlevel){
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
@@ -97,7 +98,7 @@ public class ESCUtil {
 	}
 
 	/**
-	 * 光栅打印二维码
+	 * Raster printing QR code
 	 */
 	public static byte[] getPrintQRCode2(String data, int size){
 		byte[] bytes1  = new byte[4];
@@ -111,7 +112,7 @@ public class ESCUtil {
 	}
 
 	/**
-	 * 打印一维条形码
+	 * Print 1D barcode
 	 */
 	public static byte[] getPrintBarCode(String data, int symbology, int height, int width, int textposition){
 		if(symbology < 0 || symbology > 10){
@@ -155,7 +156,7 @@ public class ESCUtil {
 		return buffer.toByteArray();
 	}
 
-	//光栅位图打印
+	//Raster bitmap printing
 	public static byte[] printBitmap(Bitmap bitmap){
 		byte[] bytes1  = new byte[4];
 		bytes1[0] = GS;
@@ -167,7 +168,7 @@ public class ESCUtil {
 		return BytesUtil.byteMerger(bytes1, bytes2);
 	}
 
-	//光栅位图打印 设置mode
+	//Raster bitmap printing Set mode
 	public static byte[] printBitmap(Bitmap bitmap, int mode){
 		byte[] bytes1  = new byte[4];
 		bytes1[0] = GS;
@@ -179,7 +180,7 @@ public class ESCUtil {
 		return BytesUtil.byteMerger(bytes1, bytes2);
 	}
 
-	//光栅位图打印
+	//Raster bitmap printing
 	public static byte[] printBitmap(byte[] bytes){
 		byte[] bytes1  = new byte[4];
 		bytes1[0] = GS;
@@ -191,15 +192,15 @@ public class ESCUtil {
 	}
 
 	/*
-	*	选择位图指令 设置mode
-	*	需要设置1B 33 00将行间距设为0
+	 * Select bitmap command set mode
+	 * Need to set 1B 33 00 to set the line spacing to 0
 	 */
 	public static byte[] selectBitmap(Bitmap bitmap, int mode){
 		return BytesUtil.byteMerger(BytesUtil.byteMerger(new byte[]{0x1B, 0x33, 0x00}, BytesUtil.getBytesFromBitMap(bitmap, mode)), new byte[]{0x0A, 0x1B, 0x32});
 	}
 
 	/**
-	 * 跳指定行数
+	 * Skip specified number of lines
 	 */
     public static byte[] nextLine(int lineNum) {
         byte[] result = new byte[lineNum];
@@ -211,18 +212,18 @@ public class ESCUtil {
     }
 
     // ------------------------style set-----------------------------
-	//设置默认行间距
+	//Set default line spacing
 	public static byte[] setDefaultLineSpace(){
 		return new byte[]{0x1B, 0x32};
 	}
 
-	//设置行间距
+	//Set line spacing
 	public static byte[] setLineSpace(int height){
     	return new byte[]{0x1B, 0x33, (byte) height};
 	}
 
 	// ------------------------underline-----------------------------
-	//设置下划线1点
+	//Set underline 1 point
 	public static byte[] underlineWithOneDotWidthOn() {
 		byte[] result = new byte[3];
 		result[0] = ESC;
@@ -231,7 +232,7 @@ public class ESCUtil {
 		return result;
 	}
 
-	//设置下划线2点
+	//Set underline 2 points
 	public static byte[] underlineWithTwoDotWidthOn() {
 		byte[] result = new byte[3];
 		result[0] = ESC;
@@ -240,7 +241,7 @@ public class ESCUtil {
 		return result;
 	}
 
-	//取消下划线
+	//Suppress underline
 	public static byte[] underlineOff() {
 		byte[] result = new byte[3];
 		result[0] = ESC;
@@ -251,7 +252,7 @@ public class ESCUtil {
 
 	// ------------------------bold-----------------------------
 	/**
-	 * 字体加粗
+	 * Font bold
 	 */
 	public static byte[] boldOn() {
 		byte[] result = new byte[3];
@@ -262,7 +263,7 @@ public class ESCUtil {
 	}
 
 	/**
-	 * 取消字体加粗
+	 * Unbold font
 	 */
 	public static byte[] boldOff() {
 		byte[] result = new byte[3];
@@ -274,7 +275,7 @@ public class ESCUtil {
 
 	// ------------------------character-----------------------------
 	/*
-	*单字节模式开启
+	*Single byte mode on
 	 */
 	public static byte[] singleByte(){
 		byte[] result = new byte[2];
@@ -284,7 +285,7 @@ public class ESCUtil {
 	}
 
 	/*
-	*单字节模式关闭
+	*Single byte mode off
  	*/
 	public static byte[] singleByteOff(){
 		byte[] result = new byte[2];
@@ -294,7 +295,7 @@ public class ESCUtil {
 	}
 
 	/**
-	 * 设置单字节字符集
+	 * Set single-byte character set
 	 */
 	public static byte[] setCodeSystemSingle(byte charset){
 		byte[] result = new byte[3];
@@ -305,7 +306,7 @@ public class ESCUtil {
 	}
 
 	/**
-	 * 设置多字节字符集
+	 * Set multibyte character set
 	 */
 	public static byte[] setCodeSystem(byte charset){
 		byte[] result = new byte[3];
@@ -318,7 +319,7 @@ public class ESCUtil {
 	// ------------------------Align-----------------------------
 
 	/**
-	 * 居左
+	 * On the left
 	 */
 	public static byte[] alignLeft() {
 		byte[] result = new byte[3];
@@ -329,7 +330,7 @@ public class ESCUtil {
 	}
 
 	/**
-	 * 居中对齐
+	 * Align center
 	 */
 	public static byte[] alignCenter() {
 		byte[] result = new byte[3];
@@ -340,7 +341,7 @@ public class ESCUtil {
 	}
 
 	/**
-	 * 居右
+	 * Right
 	 */
 	public static byte[] alignRight() {
 		byte[] result = new byte[3];
@@ -350,13 +351,13 @@ public class ESCUtil {
 		return result;
 	}
 
-	//切刀
+	//Cutter
 	public static byte[] cutter() {
 		byte[] data = new byte[]{0x1d, 0x56, 0x01};
 		return data;
 	}
 
-	//走纸到黑标
+	//Paper to black mark
 	public static byte[] gogogo(){
 		byte[] data = new byte[]{0x1C, 0x28, 0x4C, 0x02, 0x00, 0x42, 0x31};
 		return data;
@@ -367,7 +368,7 @@ public class ESCUtil {
 	//////////////////////////          private                /////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////
 	private static byte[] setQRCodeSize(int modulesize){
-		//二维码块大小设置指令
+		//Two-dimensional code block size setting instruction
 		byte[] dtmp = new byte[8];
 		dtmp[0] = GS;
 		dtmp[1] = 0x28;
@@ -381,7 +382,7 @@ public class ESCUtil {
 	}
 
 	private static byte[] setQRCodeErrorLevel(int errorlevel){
-		//二维码纠错等级设置指令
+		//QR code error correction level setting instruction
 		byte[] dtmp = new byte[8];
 		dtmp[0] = GS;
 		dtmp[1] = 0x28;
@@ -396,9 +397,9 @@ public class ESCUtil {
 
 
 	private static byte[] getBytesForPrintQRCode(boolean single){
-		//打印已存入数据的二维码
+		//Print the QR code of the stored data
 		byte[] dtmp;
-		if(single){		//同一行只打印一个QRCode， 后面加换行
+		if(single){		//Only one QRCode is printed on the same line, followed by a line feed
 			dtmp = new byte[9];
 			dtmp[8] = 0x0A;
 		}else{
@@ -416,7 +417,7 @@ public class ESCUtil {
 	}
 
 	private static byte[] getQCodeBytes(String code) {
-		//二维码存入指令
+		//QR code deposit instruction
 		ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 		try {
 			byte[] d = code.getBytes("GB18030");

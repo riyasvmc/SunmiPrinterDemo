@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
+import com.sunmi.library.BuildConfig;
 import com.sunmi.peripheral.printer.InnerResultCallbcak;
-import com.sunmi.printerhelper.BuildConfig;
 import com.sunmi.printerhelper.R;
 import com.sunmi.printerhelper.utils.SunmiPrintHelper;
 

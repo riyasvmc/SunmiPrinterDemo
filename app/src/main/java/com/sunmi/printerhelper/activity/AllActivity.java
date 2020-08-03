@@ -42,23 +42,23 @@ public class AllActivity extends BaseActivity implements View.OnClickListener {
     public void onPrint(View view) {
         byte[] rv = BytesUtil.customData();
         Bitmap head = BitmapFactory.decodeResource(getResources(), R.drawable.sunmi);
-        //打印光栅位图(print raster bitmap ——normal)
+        //Print raster bitmap (print raster bitmap ——normal)
         rv = BytesUtil.byteMerger(rv, ESCUtil.printBitmap(head, 0));
-        //打印光栅位图  倍宽  (print raster bitmap ——double width)
+        //Print raster bitmap double width (print raster bitmap ——double width)
         rv = BytesUtil.byteMerger(rv,ESCUtil.printBitmap(head, 1));
-        //打印光栅位图  倍高    (print raster bitmap ——double height)
+        //Print raster bitmap ——double height
         rv = BytesUtil.byteMerger(rv,ESCUtil.printBitmap(head, 2));
-        //打印光栅位图  倍宽倍高   (print raster bitmap ——double width and height)
+        //Print raster bitmap double width and height (print raster bitmap ——double width and height)
         rv = BytesUtil.byteMerger(rv,ESCUtil.printBitmap(head, 3));
-        //选择位图指令  8点单密度 （print Bitmap mode)
+        //Select bitmap command 8 points single density (print Bitmap mode)
         rv = BytesUtil.byteMerger(rv,ESCUtil.selectBitmap(head, 0));
-        //选择位图指令  8点双密度
+        //Select bitmap command 8 points double density
         rv = BytesUtil.byteMerger(rv,ESCUtil.selectBitmap(head, 1));
-        //选择位图指令  24点单密度
+        //Select bitmap command 24 points single density
         rv = BytesUtil.byteMerger(rv,ESCUtil.selectBitmap(head, 32));
-        //选择位图指令  24点双密度
+        //Select bitmap command 24 points double density
         rv = BytesUtil.byteMerger(rv,ESCUtil.selectBitmap(head, 33));
-        //之后将输出可显示的ascii码及制表符
+        //The displayable ascii code and tab will be output later
         rv = BytesUtil.byteMerger(rv,BytesUtil.wordData());
         byte[] ascii = new byte[96];
         for(int i = 0; i < 95; i++){

@@ -23,7 +23,7 @@ import java.util.Map;
 public class BitmapUtil {
 
     /**
-     * 生成条码bitmap
+     * Generate barcode bitmap
      * @param content
      * @param format
      * @param width

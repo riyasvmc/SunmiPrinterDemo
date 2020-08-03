@@ -191,7 +191,7 @@ public class TextActivity extends BaseActivity implements CompoundButton.OnCheck
     }
 
     /**
-     * 自定义的seekbar dialog
+     * Custom seekbar dialog
      *
      * @param context
      * @param title

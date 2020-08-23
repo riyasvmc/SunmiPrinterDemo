@@ -51,9 +51,11 @@ public class BluetoothUtil {
     }
 
     /**
-     * connect bluetooth
+     * check weather Bluetooth need to be connected again
+     * @param context
+     * @return return true is connection successful
      */
-    public static boolean connectBlueTooth(Context context) {
+    public static boolean connectBluetooth(Context context) {
         if (bluetoothSocket == null) {
             if (getBTAdapter() == null) {
                 Toast.makeText(context,  R.string.toast_3, Toast.LENGTH_SHORT).show();

@@ -2,7 +2,6 @@ package com.sunmi.printerhelper.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -99,7 +98,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             BluetoothUtil.disconnectBlueTooth(SettingActivity.this);
             BluetoothUtil.isBlueToothPrinter = false;
         }else{
-            if(!BluetoothUtil.connectBlueTooth(SettingActivity.this)){
+            if(!BluetoothUtil.connectBluetooth(SettingActivity.this)){
                 ((TextView)findViewById(R.id.setting_textview1)).setText(method[0]);
                 BluetoothUtil.isBlueToothPrinter = false;
             }else{
